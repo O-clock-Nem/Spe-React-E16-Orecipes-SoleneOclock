@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import data from '../../data';
+import data from '../../data'; // données bidons
 import { Recipe } from '../../@types/recipe';
 
 interface RecipesState {
@@ -9,7 +9,6 @@ export const initialState: RecipesState = {
   list: data,
 };
 
-const recipesReducer = createReducer(initialState, () => {
-});
+const recipesReducer = createReducer(initialState, () => {});
 
 export default recipesReducer;
