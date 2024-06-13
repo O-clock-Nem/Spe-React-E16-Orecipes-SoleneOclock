@@ -14,7 +14,10 @@ import { findRecipe } from '../../store/selectors/recipes';
 import './styles.scss';
 
 function Recipe() {
-  const recipe = useAppSelector((state) => findRecipe(state.recipes.list, 'crepes-raffinees'));
+  // on va chercher dans le state la recette à afficher
+  const recipe = useAppSelector((state) =>
+    findRecipe(state.recipes.list, 'crepes-raffinees')
+  );
 
   if (!recipe) {
     return <Navigate to="/error" replace />;
