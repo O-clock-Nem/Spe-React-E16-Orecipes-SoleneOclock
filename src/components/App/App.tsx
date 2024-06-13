@@ -8,7 +8,8 @@ import Loading from './Loading';
 import './App.scss';
 
 interface AppProps {
-  loading: boolean;
+  // eslint-disable-next-line react/require-default-props
+  loading?: boolean;
 }
 
 function App({ loading = false }: AppProps) {
