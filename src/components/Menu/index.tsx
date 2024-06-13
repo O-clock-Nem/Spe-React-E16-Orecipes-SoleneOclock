@@ -3,7 +3,9 @@ import { useSelector } from 'react-redux';
 import './styles.scss';
 
 function Menu() {
-  const recipes = useSelector((state: any) => state.recipes);
+  const recipes = useSelector((state: any) => state.recipes.list);
+  console.log(recipes);
+
   return (
     <nav className="menu">
       <a className="menu-link menu-link--active" href="/">
