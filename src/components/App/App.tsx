@@ -4,15 +4,10 @@ import Menu from '../Menu';
 // import Error from '../Error';
 
 import Loading from './Loading';
-
 import './App.scss';
 
-interface AppProps {
-  // eslint-disable-next-line react/require-default-props
-  loading?: boolean;
-}
-
-function App({ loading = false }: AppProps) {
+function App() {
+  const loading = false; //TODO gerer le loading quand on ira fetch les données
   if (loading) {
     return <Loading />;
   }
