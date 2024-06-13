@@ -8,10 +8,10 @@ import Loading from './Loading';
 import './App.scss';
 
 interface AppProps {
-  loading?: boolean;
+  loading: boolean;
 }
 
-function App({ loading }: AppProps) {
+function App({ loading = false }: AppProps) {
   if (loading) {
     return <Loading />;
   }
