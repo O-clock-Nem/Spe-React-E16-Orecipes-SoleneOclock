@@ -54,10 +54,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/recipe/:slug" element={<Recipe />} />
-        {logged && (
-          // ici toutes les routes privées, si on n'est pas logged elles n'existent pas !
-          <Route path="/favorites" element={<Favorites />} />
-        )}
+        <Route path="/favorites" element={<Favorites />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </div>

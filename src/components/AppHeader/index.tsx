@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './styles.scss';
 import logo from '../../assets/logo.png';
 import LoginForm from '../LoginForm';
@@ -9,12 +10,11 @@ import {
 import checkLogin from '../../store/thunks/checkLogin';
 
 function AppHeader() {
-  // -- Inputs controlés :
-  // X on va ajouter email et password dans le state redux pour input controlés
-  // X on recupère la valeur de email et password pour filer à LoginForm
-  // X dans changeField (au change des inputs) on va aller modifier la valeur de email ou password dans le state redux (dispatch action)
-  const email = useAppSelector((state) => state.user.credentials.email);
-  const password = useAppSelector((state) => state.user.credentials.password);
+  // STATE LOCAL
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // STATE REDUX
   const logged = useAppSelector((state) => state.user.logged);
   const pseudo = useAppSelector((state) => state.user.pseudo);
   const error = useAppSelector((state) => state.user.error);
@@ -29,23 +29,25 @@ function AppHeader() {
           email={email}
           password={password}
           changeField={(value: string, name: 'email' | 'password') => {
-            // on veut modifier le state redux
-            dispatch(
-              actionChangeCredential({
-                inputName: name,
-                newValue: value,
-              })
-            );
+            // on veut modifier le state local
+            // on utilise soit seetEmail soit setPassword
+            if (name === 'email') {
+              setEmail(value);
+            } else {
+              setPassword(value);
+            }
           }}
           handleLogin={() => {
             // - faire un call api vers /login -> thunk
             // - enregistrer le pseudo dans le state -> reducer
-            dispatch(checkLogin());
+            dispatch(checkLogin({ email, password }));
           }}
           handleLogout={() => {
             // passer logged à false dans le state -> reducer
             // vider email et password et pseudo
             dispatch(actionLogOut());
+            setEmail('');
+            setPassword('');
           }}
           isLogged={logged}
           loggedMessage={`Bonjour ${pseudo}`}

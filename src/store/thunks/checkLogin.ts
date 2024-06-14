@@ -1,28 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 // importe notre instance de axios avec la base url préconfiguré
 import axiosInstance from '../../axios/axios';
-// on ajoute "type" devant le type importé pour casser le cycle de depenances
-// car on importe le type du store qui importe le reducer qui import l'action checkLogin qui est nous ici
-// si on a un dendency cycle pour des valeurs et non des types faut revoir notre architecture
-import type { RootState } from '..'; // le fichier index
 
-const checkLogin = createAsyncThunk('CHECK_LOGIN', async (_, thunkAPI) => {
-  // on recupère les infos email et password du state grace à la fonction getState
-  // de la thunkAPI qui nous est passé en second paramètre de notre middleware
-  const state = thunkAPI.getState() as RootState;
-  const { email, password } = state.user.credentials;
+const checkLogin = createAsyncThunk(
+  'CHECK_LOGIN',
+  async (payload: { email: string; password: string }, thunkAPI) => {
+    // on recupère les infos email et password dans le payload de l'action
+    // les infos credentials ne sont pas dans le state redux, elles sont dans le state local du composant AppHeader
+    const result = await axiosInstance.post('/login', {
+      email: payload.email,
+      password: payload.password,
+    });
 
-  const result = await axiosInstance.post('/login', {
-    email,
-    password,
-  });
-
-  console.log(result);
-  // on veut enregistrer dans le state le pseudo + le token -> on dispatch (automatiquement) une action fulfilled au reducer et on ajoute le pseudo dans le payload de l'action fulfilled en le retournant
-  return {
-    pseudo: result.data.pseudo,
-    token: result.data.token,
-  };
-});
+    console.log(result);
+    // on veut enregistrer dans le state le pseudo + le token -> on dispatch (automatiquement) une action fulfilled au reducer et on ajoute le pseudo dans le payload de l'action fulfilled en le retournant
+    return {
+      pseudo: result.data.pseudo,
+      token: result.data.token,
+    };
+  }
+);
 
 export default checkLogin;

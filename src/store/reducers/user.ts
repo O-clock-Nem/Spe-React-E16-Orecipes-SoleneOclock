@@ -3,42 +3,23 @@ import checkLogin from '../thunks/checkLogin';
 
 interface UserState {
   logged: boolean;
-  credentials: {
-    email: string;
-    password: string;
-  };
   pseudo: string;
   error: null | string;
   token: null | string;
 }
 export const initialState: UserState = {
   logged: false,
-  credentials: {
-    email: 'chat@mious.fr',
-    password: 'mious666',
-  },
   pseudo: '',
   error: null,
   token: null,
 };
 
 // action cretors
-export const actionChangeCredential = createAction<{
-  inputName: 'email' | 'password';
-  newValue: string;
-}>('user/CHANGE_CREDENTIAL');
-
 export const actionLogOut = createAction('LOGOUT');
 
 // reducer
 const userReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(actionChangeCredential, (state, action) => {
-      // modifier soit email soit password dans le state
-      // et mettre une nouvelle valeur
-      // il me faut en payload : le nom du champ à modifier + la nouvelle valeur
-      state.credentials[action.payload.inputName] = action.payload.newValue;
-    })
     .addCase(checkLogin.fulfilled, (state, action) => {
       // le thunk a réussit sa requete vers /login
       // enregistrer le pseudo et le token dans le state
@@ -54,10 +35,8 @@ const userReducer = createReducer(initialState, (builder) => {
       state.error = 'Erreur de connexion...';
     })
     .addCase(actionLogOut, (state) => {
-      // logged à false, vider email, password et pseudo
+      // logged à false, vider pseudo
       state.logged = false;
-      state.credentials.email = '';
-      state.credentials.password = '';
       state.pseudo = '';
     });
 });
