@@ -2,7 +2,10 @@ import './styles.scss';
 import logo from '../../assets/logo.png';
 import LoginForm from '../LoginForm';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { actionChangeCredential } from '../../store/reducers/user';
+import {
+  actionChangeCredential,
+  actionLogOut,
+} from '../../store/reducers/user';
 import checkLogin from '../../store/thunks/checkLogin';
 
 function AppHeader() {
@@ -35,13 +38,14 @@ function AppHeader() {
             );
           }}
           handleLogin={() => {
-            console.log('handleLogin executé');
             // - faire un call api vers /login -> thunk
             // - enregistrer le pseudo dans le state -> reducer
             dispatch(checkLogin());
           }}
           handleLogout={() => {
-            console.log('handlelout executé');
+            // passer logged à false dans le state -> reducer
+            // vider email et password et pseudo
+            dispatch(actionLogOut());
           }}
           isLogged={logged}
           loggedMessage={`Bonjour ${pseudo}`}

@@ -26,6 +26,8 @@ export const actionChangeCredential = createAction<{
   newValue: string;
 }>('user/CHANGE_CREDENTIAL');
 
+export const actionLogOut = createAction('LOGOUT');
+
 // reducer
 const userReducer = createReducer(initialState, (builder) => {
   builder
@@ -47,6 +49,13 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(checkLogin.rejected, (state, action) => {
       // enregistrer un message d'erreur dans le state
       state.error = 'Erreur de connexion...';
+    })
+    .addCase(actionLogOut, (state) => {
+      // logged à false, vider email, password et pseudo
+      state.logged = false;
+      state.credentials.email = '';
+      state.credentials.password = '';
+      state.pseudo = '';
     });
 });
 
