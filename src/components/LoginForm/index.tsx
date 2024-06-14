@@ -13,12 +13,19 @@ interface LoginFormProps {
   loggedMessage?: string;
 }
 function LoginForm({
+  // chaine affichée dans la value du input email
   email,
+  // chaine affichée dans la value du input password
   password,
+  // fonction executée au change des inputs email et password et qui reçoit en param la nouvelle valeur de l'input et le nom de l'input (soit email soit password)
   changeField,
+  // fonction executée au click sur le bouton ok (à la valid du form)
   handleLogin,
+  // fonction executée au click sur le bouton deconexion
   handleLogout,
+  // booleen qui pilote l'affichage du formulaire : si vrai le form ets affiché, si faux le message + bouton deconnexion est affiché
   isLogged,
+  // affiché si isLogged est false
   loggedMessage,
 }: LoginFormProps) {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -70,6 +77,7 @@ function LoginForm({
   );
 }
 
+// attention ça va etre deprecié
 LoginForm.defaultProps = {
   isLogged: false,
   loggedMessage: 'Connecté',
