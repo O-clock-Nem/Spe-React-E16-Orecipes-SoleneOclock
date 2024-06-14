@@ -1,7 +1,8 @@
 import './styles.scss';
 import logo from '../../assets/logo.png';
 import LoginForm from '../LoginForm';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { actionChangeCredential } from '../../store/reducers/user';
 
 function AppHeader() {
   // X on va ajouter email et password dans le state redux pour input controlés
@@ -9,6 +10,8 @@ function AppHeader() {
   const email = useAppSelector((state) => state.user.credentials.email);
   const password = useAppSelector((state) => state.user.credentials.password);
   // dans changeField (au change des inputs) on va aller modifier la valeur de email ou password dans le state redux (dispatch action)
+
+  const dispatch = useAppDispatch();
 
   return (
     <header className="header">
@@ -20,6 +23,13 @@ function AppHeader() {
           console.log('changeFiel executé');
           console.log('value', value);
           console.log('name', name);
+          // on veut modifier le state redux
+          dispatch(
+            actionChangeCredential({
+              inputName: name,
+              newValue: value,
+            })
+          );
         }}
         handleLogin={() => {
           console.log('handleLogin executé');

@@ -1,4 +1,4 @@
-import { createReducer } from '@reduxjs/toolkit';
+import { createAction, createReducer } from '@reduxjs/toolkit';
 
 interface UserState {
   logged: boolean;
@@ -15,6 +15,20 @@ export const initialState: UserState = {
   },
 };
 
-const userReducer = createReducer(initialState, () => {});
+// action cretors
+export const actionChangeCredential = createAction<{
+  inputName: 'email' | 'password';
+  newValue: string;
+}>('user/CHANGE_CREDENTIAL');
+
+// reducer
+const userReducer = createReducer(initialState, (builder) => {
+  builder.addCase(actionChangeCredential, (state, action) => {
+    // modifier soit email soit password dans le state
+    // et mettre une nouvelle valeur
+    // il me faut en payload : le nom du champ à modifier + la nouvelle valeur
+    state.credentials[action.payload.inputName] = action.payload.newValue;
+  });
+});
 
 export default userReducer;
