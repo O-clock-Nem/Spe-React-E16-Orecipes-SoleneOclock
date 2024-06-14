@@ -7,6 +7,7 @@ import {
   actionLogOut,
 } from '../../store/reducers/user';
 import checkLogin from '../../store/thunks/checkLogin';
+import { removeTokenFromAxiosInstance } from '../../axios/axios';
 
 function AppHeader() {
   // -- Inputs controlés :
@@ -46,6 +47,8 @@ function AppHeader() {
             // passer logged à false dans le state -> reducer
             // vider email et password et pseudo
             dispatch(actionLogOut());
+            // on pense à supprimer le token des headers de notre instance
+            removeTokenFromAxiosInstance();
           }}
           isLogged={logged}
           loggedMessage={`Bonjour ${pseudo}`}

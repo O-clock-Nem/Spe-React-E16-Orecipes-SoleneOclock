@@ -2,7 +2,7 @@ import { Ingredient } from '../../../@types/recipe';
 import './styles.scss';
 
 interface IngredientsProps {
-  list: Ingredient[]
+  list: Ingredient[];
 }
 
 function Ingredients({ list }: IngredientsProps) {
@@ -12,7 +12,7 @@ function Ingredients({ list }: IngredientsProps) {
         <li className="ingredient" key={ingredient.id}>
           <span className="ingredient-quantity">
             {`${ingredient.quantity} ${ingredient.unit}`}
-          </span> 
+          </span>
           {ingredient.name}
         </li>
       ))}
