@@ -3,6 +3,10 @@ import logo from '../../assets/logo.png';
 import LoginForm from '../LoginForm';
 
 function AppHeader() {
+  // X on va ajouter email et password dans le state redux pour input controlés
+  // on recupère la valeur de email et password pour filer à LoginForm
+  // dans changeField (au change des inputs) on va aller modifier la valeur de email ou password dans le state redux (dispatch action)
+
   return (
     <header className="header">
       <img src={logo} className="header-logo" alt="Logo oRecipes" />
