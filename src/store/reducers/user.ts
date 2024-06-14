@@ -9,7 +9,6 @@ interface UserState {
   };
   pseudo: string;
   error: null | string;
-  token: null | string;
 }
 export const initialState: UserState = {
   logged: false,
@@ -19,7 +18,6 @@ export const initialState: UserState = {
   },
   pseudo: '',
   error: null,
-  token: null,
 };
 
 // action cretors
@@ -29,6 +27,7 @@ export const actionChangeCredential = createAction<{
 }>('user/CHANGE_CREDENTIAL');
 
 export const actionLogOut = createAction('LOGOUT');
+export const actionLogIn = createAction<string>('LOGIN');
 
 // reducer
 const userReducer = createReducer(initialState, (builder) => {
@@ -41,9 +40,8 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(checkLogin.fulfilled, (state, action) => {
       // le thunk a réussit sa requete vers /login
-      // enregistrer le pseudo et le token dans le state
-      state.pseudo = action.payload.pseudo;
-      state.token = action.payload.token;
+      // enregistrer le pseudo dans le state
+      state.pseudo = action.payload;
       // passer logged à true
       state.logged = true;
       // virer la potentielle erreur
@@ -52,6 +50,13 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(checkLogin.rejected, (state, action) => {
       // enregistrer un message d'erreur dans le state
       state.error = 'Erreur de connexion...';
+    })
+    .addCase(actionLogIn, (state, action) => {
+      // le thunk a réussit sa requete vers /login
+      // enregistrer le pseudo dans le state
+      state.pseudo = action.payload;
+      // passer logged à true
+      state.logged = true;
     })
     .addCase(actionLogOut, (state) => {
       // logged à false, vider email, password et pseudo

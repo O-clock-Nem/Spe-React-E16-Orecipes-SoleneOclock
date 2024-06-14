@@ -8,6 +8,7 @@ import {
 } from '../../store/reducers/user';
 import checkLogin from '../../store/thunks/checkLogin';
 import { removeTokenFromAxiosInstance } from '../../axios/axios';
+import { removeTokenAndPseudoFromStorage } from '../../localStorage/localStorage';
 
 function AppHeader() {
   // -- Inputs controlés :
@@ -49,6 +50,8 @@ function AppHeader() {
             dispatch(actionLogOut());
             // on pense à supprimer le token des headers de notre instance
             removeTokenFromAxiosInstance();
+            // on pense à virer le token du localStorage
+            removeTokenAndPseudoFromStorage();
           }}
           isLogged={logged}
           loggedMessage={`Bonjour ${pseudo}`}
