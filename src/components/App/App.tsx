@@ -27,6 +27,8 @@ function App() {
   }, [location.pathname]);
 
   const loading = useAppSelector((state) => state.recipes.loading);
+
+  // ici à chaque render on recup LA ref de la fonction dispatch du store, elle ne change jamais
   const dispatch = useAppDispatch();
 
   // au premier rendu de App :
@@ -36,7 +38,7 @@ function App() {
     // dans le premier rendu le tableau des recettes est VIDE !
     // envoie de la demande après le premier rendu
     dispatch(getRecipes());
-  }, []);
+  }, [dispatch]);
 
   // ça ne sert à rien d'avoir la route /recipe/:slug si le tableau des recettes est vide
   // -> la recette sera pas trouvé on va aller /error

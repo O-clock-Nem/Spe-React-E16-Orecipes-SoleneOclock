@@ -3,10 +3,7 @@ import './styles.scss';
 import logo from '../../assets/logo.png';
 import LoginForm from '../LoginForm';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import {
-  actionChangeCredential,
-  actionLogOut,
-} from '../../store/reducers/user';
+import { actionLogOut } from '../../store/reducers/user';
 import checkLogin from '../../store/thunks/checkLogin';
 
 function AppHeader() {
