@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+// on importe notre instance perso préconfiguré plutot que juste axios
 import axiosInstance from '../../axios/axios';
 
 const getRecipes = createAsyncThunk('GET_RECIPES', async () => {

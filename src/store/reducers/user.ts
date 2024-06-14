@@ -1,4 +1,5 @@
 import { createAction, createReducer } from '@reduxjs/toolkit';
+import checkLogin from '../thunks/checkLogin';
 
 interface UserState {
   logged: boolean;
@@ -6,6 +7,8 @@ interface UserState {
     email: string;
     password: string;
   };
+  pseudo: string;
+  error: null | string;
 }
 export const initialState: UserState = {
   logged: false,
@@ -13,6 +16,8 @@ export const initialState: UserState = {
     email: 'chat@mious.fr',
     password: 'mious666',
   },
+  pseudo: '',
+  error: null,
 };
 
 // action cretors
@@ -23,12 +28,26 @@ export const actionChangeCredential = createAction<{
 
 // reducer
 const userReducer = createReducer(initialState, (builder) => {
-  builder.addCase(actionChangeCredential, (state, action) => {
-    // modifier soit email soit password dans le state
-    // et mettre une nouvelle valeur
-    // il me faut en payload : le nom du champ à modifier + la nouvelle valeur
-    state.credentials[action.payload.inputName] = action.payload.newValue;
-  });
+  builder
+    .addCase(actionChangeCredential, (state, action) => {
+      // modifier soit email soit password dans le state
+      // et mettre une nouvelle valeur
+      // il me faut en payload : le nom du champ à modifier + la nouvelle valeur
+      state.credentials[action.payload.inputName] = action.payload.newValue;
+    })
+    .addCase(checkLogin.fulfilled, (state, action) => {
+      // le thunk a réussit sa requete vers /login
+      // enregistrer le pseudo dans le state
+      state.pseudo = action.payload;
+      // passer logged à true
+      state.logged = true;
+      // virer la potentielle erreur
+      state.error = null;
+    })
+    .addCase(checkLogin.rejected, (state, action) => {
+      // enregistrer un message d'erreur dans le state
+      state.error = 'Erreur de connexion...';
+    });
 });
 
 export default userReducer;
