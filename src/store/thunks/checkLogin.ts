@@ -18,8 +18,11 @@ const checkLogin = createAsyncThunk('CHECK_LOGIN', async (_, thunkAPI) => {
   });
 
   console.log(result);
-  // on veut l'enregistrer dans le state -> on dispatch (automatiquement) une action fulfilled au reducer et on ajoute le pseudo dans le payload de l'action fulfilled en le retournant
-  return result.data.pseudo;
+  // on veut enregistrer dans le state le pseudo + le token -> on dispatch (automatiquement) une action fulfilled au reducer et on ajoute le pseudo dans le payload de l'action fulfilled en le retournant
+  return {
+    pseudo: result.data.pseudo,
+    token: result.data.token,
+  };
 });
 
 export default checkLogin;

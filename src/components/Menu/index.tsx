@@ -4,6 +4,7 @@ import './styles.scss';
 
 function Menu() {
   const recipes = useAppSelector((state) => state.recipes.list);
+  const logged = useAppSelector((state) => state.user.logged);
 
   return (
     <nav className="menu">
@@ -15,6 +16,16 @@ function Menu() {
       >
         Accueil
       </NavLink>
+      {logged && (
+        <NavLink
+          to="/favorites"
+          className={({ isActive }) =>
+            isActive ? 'menu-link menu-link--active' : 'menu-link'
+          }
+        >
+          Mes recettes pref ❤️
+        </NavLink>
+      )}
       {recipes.map((recipe) => (
         <NavLink
           key={recipe.id}

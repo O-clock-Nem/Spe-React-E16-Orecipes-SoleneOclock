@@ -9,6 +9,7 @@ interface UserState {
   };
   pseudo: string;
   error: null | string;
+  token: null | string;
 }
 export const initialState: UserState = {
   logged: false,
@@ -18,6 +19,7 @@ export const initialState: UserState = {
   },
   pseudo: '',
   error: null,
+  token: null,
 };
 
 // action cretors
@@ -39,8 +41,9 @@ const userReducer = createReducer(initialState, (builder) => {
     })
     .addCase(checkLogin.fulfilled, (state, action) => {
       // le thunk a réussit sa requete vers /login
-      // enregistrer le pseudo dans le state
-      state.pseudo = action.payload;
+      // enregistrer le pseudo et le token dans le state
+      state.pseudo = action.payload.pseudo;
+      state.token = action.payload.token;
       // passer logged à true
       state.logged = true;
       // virer la potentielle erreur

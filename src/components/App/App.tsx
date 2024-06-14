@@ -10,8 +10,13 @@ import Loading from './Loading';
 import './App.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import getRecipes from '../../store/thunks/getRecipes';
+import Favorites from '../Favorites/Favorites';
 
 function App() {
+  // on recupere logged depuis le state pour conditionner les routes privées
+  // si logged est à true les routes existent sinon impossible d'aller dessus
+  const logged = useAppSelector((state) => state.user.logged);
+
   // on peut recuperer le pathname (l'URL) avec le hook de react router dom : useLocation
   // on peut fair eun useEffect avec ce pathname en tableau de dependances
   // comme ça notre effet sera executé a chaque rendu SI l'URL à changé !
@@ -49,6 +54,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/recipe/:slug" element={<Recipe />} />
+        {logged && (
+          // ici toutes les routes privées, si on n'est pas logged elles n'existent pas !
+          <Route path="/favorites" element={<Favorites />} />
+        )}
         <Route path="*" element={<Error />} />
       </Routes>
     </div>
