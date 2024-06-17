@@ -12,3 +12,12 @@ export function findRecipe(
   });
   return recipe;
 }
+
+/*
+TODO
+ * installer vitest sur votre repo orecipes
+ * creer un fichier recipes.test.ts
+ * ecrire des assertions pour tester la fonction findRecipe
+ * -> elle a 2 paramètres qu'on va mocker (fausses valeurs)
+ * -> écrire tous les cas possibles à tester (choisir la limite)
+ */
