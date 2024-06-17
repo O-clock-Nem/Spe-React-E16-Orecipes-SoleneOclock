@@ -1,9 +1,12 @@
+// les fausses données utilisées avant le call API pour remplir le state
+// utilisée aussi dans les tests
 export default [
   {
     id: 12345,
     title: 'Crêpes raffinées',
     slug: 'crepes-raffinees',
-    thumbnail: 'https://images.pexels.com/photos/53483/strawberries-crepe-dessert-sweet-53483.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    thumbnail:
+      'https://images.pexels.com/photos/53483/strawberries-crepe-dessert-sweet-53483.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     author: 'John Deuf',
     difficulty: 'Facile',
     description: 'Simples mais toujours délicieuses',
@@ -23,6 +26,7 @@ export default [
       {
         id: 15,
         quantity: 50,
+
         unit: 'g',
         name: 'de sucre en poudre',
       },
@@ -57,7 +61,7 @@ export default [
       'Rajouter les oeufs tout en mélangeant',
       'Rajouter le beurre fondu tout en mélangeant',
       'Rajouter le lait petit à petit tout en mélangeant',
-      'Rajouter le rhum  tout en mélangeant. À ce stade si vous fatiguez, n\'hésitez pas à vous en servir un petit verre avant d\'attaquer la suite.',
+      "Rajouter le rhum  tout en mélangeant. À ce stade si vous fatiguez, n'hésitez pas à vous en servir un petit verre avant d'attaquer la suite.",
       'Laisser reposer une heure',
       'Faire cuire à la poele ou à la machine à crêpes.',
       'Dégustez !',
@@ -67,7 +71,8 @@ export default [
     id: 8965,
     title: 'Pizza Margherita',
     slug: 'pizza-margherita',
-    thumbnail: 'https://images.pexels.com/photos/263041/pexels-photo-263041.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    thumbnail:
+      'https://images.pexels.com/photos/263041/pexels-photo-263041.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     author: 'Silvia Dital',
     difficulty: 'Moyen',
     description: 'Dans la pure tradition italienne',
@@ -82,7 +87,7 @@ export default [
         id: 3,
         quantity: 250,
         unit: 'cl',
-        name: 'd\'eau',
+        name: "d'eau",
       },
       {
         id: 131,
@@ -94,7 +99,7 @@ export default [
         id: 12,
         quantity: 4,
         unit: 'c à s',
-        name: 'd\'huile d\'olive vierge-extra',
+        name: "d'huile d'olive vierge-extra",
       },
       {
         id: 143,
