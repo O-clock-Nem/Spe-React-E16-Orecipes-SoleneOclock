@@ -13,11 +13,12 @@ export function findRecipe(
   return recipe;
 }
 
-/*
-TODO
- * installer vitest sur votre repo orecipes
- * creer un fichier recipes.test.ts
- * ecrire des assertions pour tester la fonction findRecipe
- * -> elle a 2 paramètres qu'on va mocker (fausses valeurs)
- * -> écrire tous les cas possibles à tester (choisir la limite)
- */
+export const getTitle = (recipeList: Recipe[] = []) => {
+  if (recipeList.length === 1) {
+    return `Voici notre recette`;
+  }
+  if (recipeList.length > 1) {
+    return `Voici nos ${recipeList.length} recettes`;
+  }
+  return 'Pas de recette';
+};

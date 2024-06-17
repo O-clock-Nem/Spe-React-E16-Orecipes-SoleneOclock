@@ -2,7 +2,7 @@
 import { describe, test, expect } from 'vitest';
 
 // importer la fonction à tester
-import { findRecipe } from '../../../store/selectors/recipes';
+import { findRecipe, getTitle } from '../../../store/selectors/recipes';
 import { Recipe } from '../../../@types/recipe';
 import data from '../../../data';
 
@@ -43,5 +43,33 @@ describe('tests execution', () => {
 
   test('findRecipe called with a slug not corresponding to any recipe of the array should reurn undefined', () => {
     expect(findRecipe(data, 'nems-aux-crevettes')).toBe(undefined);
+  });
+});
+
+describe('getTitle', () => {
+  test('getTitle should be a function', () => {
+    expect(getTitle).toBeTypeOf('function');
+  });
+
+  test('getTitle should return a string title', () => {
+    expect(getTitle()).toBeTypeOf('string');
+  });
+
+  test('getTitle should return specific title "Voici nos 2 recettes" if state contains exctly 2 recipes', () => {
+    // data c'est nos données tests du fichie data.js y'a 2 recettes dedans
+    expect(getTitle(data)).toBe('Voici nos 2 recettes');
+  });
+
+  test('getTitle should return specific title "Voici nos 4 recettes" if state contains exctly 4 recipes', () => {
+    // data c'est nos données tests du fichie data.js y'a 2 recettes dedans, on créé un tableau et on deverse 2 fois data donc on a 4 recettes
+    expect(getTitle([...data, ...data])).toBe('Voici nos 4 recettes');
+  });
+
+  test('getTitle should return specific title "Voici notre recette" if state contains exctly 1 recipes', () => {
+    expect(getTitle([data[1]])).toBe('Voici notre recette');
+  });
+
+  test('getTitle should return specific title "Pas de recette" if state contains an empty array', () => {
+    expect(getTitle([])).toBe('Pas de recette');
   });
 });
