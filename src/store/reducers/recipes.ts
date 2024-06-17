@@ -4,7 +4,7 @@ import { Recipe } from '../../@types/recipe';
 import getRecipes from '../thunks/getRecipes';
 import getFavRecipes from '../thunks/getFavRecipes';
 
-interface RecipesState {
+export interface RecipesState {
   list: Recipe[];
   listFav: Recipe[];
   loading: boolean;
