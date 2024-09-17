@@ -20,7 +20,8 @@
     "vite.config.ts",
     "vitest.config.ts",
     ".eslintrc.cjs",
-    "src"
+    "src",
+    "playwright.config.ts"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

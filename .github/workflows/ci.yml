@@ -3,16 +3,10 @@ on:
   push:
     branches:
       - master
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+
 jobs:
-  # Je choisi de nommé mon job `build`
   build:
-    # On définit la plateforme sur laquelle on veut exécuter notre job
     runs-on: ubuntu-latest
-    # Puis on spécifie les étapes à réaliser pour build mon code
     steps:
       # Récupération du code
       - name: Checkout repository
