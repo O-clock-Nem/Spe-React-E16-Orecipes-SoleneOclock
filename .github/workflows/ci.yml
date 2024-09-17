@@ -12,11 +12,6 @@ jobs:
   build:
     # On définit la plateforme sur laquelle on veut exécuter notre job
     runs-on: ubuntu-latest
-    # On peut ajouter des informations par défaults
-    defaults:
-      run:
-        shell: bash
-        working-directory: ./projet
     # Puis on spécifie les étapes à réaliser pour build mon code
     steps:
       # Récupération du code
@@ -33,8 +28,6 @@ jobs:
         with:
           node-version: '20.x'
           cache: 'pnpm'
-          # Comme notre projet est situer dans le dossier `projet` il faut indiquer le chemin vers notre fichier de lock
-          cache-dependency-path: ./projet/pnpm-lock.yaml
       # Installation des dépendances
       - name: Install dependencies
         run: pnpm install
@@ -55,7 +48,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           name: build
-          path: ./projet/dist
+          path: ./dist
 
   deploy:
     runs-on: ubuntu-latest
