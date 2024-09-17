@@ -2,6 +2,8 @@
 // it et test c'est pareil
 import { describe, expect, it } from 'vitest';
 import { render, screen } from '../customRender';
+import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 
 // pour tester le composant Card on l'importe (c'est une fonction)
 import Card from '../../components/Card';

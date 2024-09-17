@@ -26,6 +26,12 @@ module.exports = {
       files: ['src/**/reducers/*.ts'],
       rules: { 'no-param-reassign': ['error', { props: false }] },
     },
+    {
+      files: ['**/*.test.ts'],
+      env: {
+        jest: true,
+      },
+    },
   ],
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
