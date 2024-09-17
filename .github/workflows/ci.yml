@@ -1,0 +1,72 @@
+name: CI/CD
+on:
+  push:
+    branches:
+      - master
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+jobs:
+  # Je choisi de nommé mon job `build`
+  build:
+    # On définit la plateforme sur laquelle on veut exécuter notre job
+    runs-on: ubuntu-latest
+    # On peut ajouter des informations par défaults
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./projet
+    # Puis on spécifie les étapes à réaliser pour build mon code
+    steps:
+      # Récupération du code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      # Mise en place de pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: '8'
+      # Mise en place de `node`
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'pnpm'
+          # Comme notre projet est situer dans le dossier `projet` il faut indiquer le chemin vers notre fichier de lock
+          cache-dependency-path: ./projet/pnpm-lock.yaml
+      # Installation des dépendances
+      - name: Install dependencies
+        run: pnpm install
+      # Si j'ai un linter / check de type (tsc)
+      # Si j'ai des tests à faire
+
+      # Build du projet
+      - name: Build
+        run: pnpm build
+        # Si on utilise un github pages en public
+        # Dans l'url il y aura le nom du repository
+        # On va préciser dans ce cas de changer l'url de base pour vite
+        # Voir le fichier `vite.config.ts`
+        env:
+          BASE_URL: /${{ github.event.repository.name }}
+      # Génération d'un artefact
+      - name: Generate Github Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: build
+          path: ./projet/dist
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Setup Github Pages
+        uses: actions/configure-pages@v4
+      - name: Deploy
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: build
