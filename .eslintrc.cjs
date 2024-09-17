@@ -63,5 +63,6 @@ module.exports = {
           'Use typed hooks `useAppDispatch` and `useAppSelector` instead.',
       },
     ],
+    'import/no-extraneous-dependencies': 0,
   },
 };
